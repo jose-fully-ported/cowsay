@@ -1,7 +1,7 @@
 "on":
   push:
     branches:
-    - main
+    - no-procfile
 name: Deploy to cowsay
 jobs:
   porter-deploy:
@@ -18,9 +18,9 @@ jobs:
       with:
         command: apply -f ./porter.yaml
       env:
-        PORTER_CLUSTER: "9"
+        PORTER_CLUSTER: "3"
         PORTER_HOST: https://newt-worthy-gazelle.ngrok-free.app
-        PORTER_PROJECT: "1"
+        PORTER_PROJECT: "2"
         PORTER_STACK_NAME: cowsay
         PORTER_TAG: ${{ steps.vars.outputs.sha_short }}
-        PORTER_TOKEN: ${{ secrets.PORTER_STACK_1_9 }}
+        PORTER_TOKEN: ${{ secrets.PORTER_STACK_2_3 }}
