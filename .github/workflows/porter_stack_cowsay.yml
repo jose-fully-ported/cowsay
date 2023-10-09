@@ -14,13 +14,14 @@ jobs:
       run: echo "sha_short=$(git rev-parse --short HEAD)" >> $GITHUB_OUTPUT
     - name: Deploy stack
       timeout-minutes: 30
-      uses: porter-dev/porter-cli-action-testing@v0.2.3
+      uses: porter-dev/porter-cli-action@v0.1.0
       with:
         command: apply -f ./porter.yaml
       env:
-        PORTER_CLUSTER: "2"
+        PORTER_CLUSTER: "3"
         PORTER_HOST: https://newt-worthy-gazelle.ngrok-free.app
+        PORTER_PR_NUMBER: ${{ github.event.inputs.pr_number }}
         PORTER_PROJECT: "1"
         PORTER_STACK_NAME: cowsay
         PORTER_TAG: ${{ steps.vars.outputs.sha_short }}
-        PORTER_TOKEN: ${{ secrets.PORTER_STACK_1_2 }}
+        PORTER_TOKEN: ${{ secrets.PORTER_STACK_1_3 }}
