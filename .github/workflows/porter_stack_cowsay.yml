@@ -38,7 +38,7 @@ jobs:
 
     - name: Deploy stack
       timeout-minutes: 30
-      uses: porter-dev/porter-cli-action-testing@27e56ad5f4e2d0ddf98358bc6a1a698ff02e6dcd
+      uses: porter-dev/porter-cli-action-testing@9a7e1bbe056e34b8a27b1dfdc8d76ede56a1cfcb
       with:
         command: apply -f ./porter.yaml
       env:
