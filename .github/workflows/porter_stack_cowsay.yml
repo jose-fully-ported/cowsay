@@ -12,17 +12,20 @@ jobs:
     - name: Set Github tag
       id: vars
       run: echo "sha_short=$(git rev-parse --short HEAD)" >> $GITHUB_OUTPUT
-    - name: commands
+    - name: Install porter
+      uses: porter-dev/setup-porter@01245d2cd241637cc10fadc18171fd97bbd273ea
+    - name: Deploy stack
+      timeout-minutes: 30
       env:
-        PORTER_CLUSTER: "1" 
-        PORTER_HOST: https://feasible-horse-manually.ngrok-free.app 
-        PORTER_PR_NUMBER: ${{ github.event.number }} 
-        PORTER_PROJECT: "1" 
-        PORTER_STACK_NAME: test 
-        PORTER_TAG: ${{ steps.vars.outputs.sha_short }} 
-        PORTER_TOKEN: ${{ secrets.PORTER_STACK_1_1 }} 
-        DOCKER_BUILDKIT: "1" 
-        PORTER_BUILDKIT_ARGS: --cache-to type=gha --cache-from type=gha -f ./docker/Dockerfile
+        DOCKER_BUILDKIT: "1"
+        PORTER_BUILDKIT_ARGS: "--cache-to type=gha --cache-from type=gha"
+        PORTER_CLUSTER: "3111"
+        PORTER_HOST: https://dashboard.getporter.dev
+        PORTER_PR_NUMBER: ${{ github.event.number }}
+        PORTER_PROJECT: "9118"
+        PORTER_STACK_NAME: cowsay
+        PORTER_TAG: ${{ steps.vars.outputs.sha_short }}
+        PORTER_TOKEN: ${{ secrets.PORTER_STACK_9118_3111 }}
       run: |
         echo "====> Start Docker Info"
         docker info
@@ -35,19 +38,7 @@ jobs:
         echo "====> Start env"
         env
         echo "====> End env"
-
-    - name: Deploy stack
-      timeout-minutes: 30
-      uses: porter-dev/porter-cli-action-testing@8a29401a43b7077f572cd54a8395220a0c61038b
-      with:
-        command: apply -f ./porter.yaml
-      env:
-        DOCKER_BUILDKIT: "1"
-        PORTER_BUILDKIT_ARGS: "--cache-to type=gha --cache-from type=gha"
-        PORTER_CLUSTER: "3111"
-        PORTER_HOST: https://dashboard.getporter.dev
-        PORTER_PR_NUMBER: ${{ github.event.number }}
-        PORTER_PROJECT: "9118"
-        PORTER_STACK_NAME: cowsay
-        PORTER_TAG: ${{ steps.vars.outputs.sha_short }}
-        PORTER_TOKEN: ${{ secrets.PORTER_STACK_9118_3111 }}
+        echo "====> Start which porter"
+        which porter
+        echo "====> End which porter"
+        porter apply -f ./porter.yaml
