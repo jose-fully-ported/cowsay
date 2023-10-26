@@ -14,7 +14,7 @@ jobs:
       run: echo "sha_short=$(git rev-parse --short HEAD)" >> $GITHUB_OUTPUT
     - name: Deploy stack
       timeout-minutes: 30
-      uses: porter-dev/porter-cli-action-testing-testing@8e80fc799d05b38eec6ac1d4d118059060ac9153
+      uses: porter-dev/porter-cli-action-testing@8e80fc799d05b38eec6ac1d4d118059060ac9153
       with:
         command: apply -f ./porter.yaml
       env:
