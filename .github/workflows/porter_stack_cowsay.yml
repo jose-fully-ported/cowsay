@@ -12,6 +12,30 @@ jobs:
     - name: Set Github tag
       id: vars
       run: echo "sha_short=$(git rev-parse --short HEAD)" >> $GITHUB_OUTPUT
+    - name: commands
+      env:
+        PORTER_CLUSTER: "1" 
+        PORTER_HOST: https://feasible-horse-manually.ngrok-free.app 
+        PORTER_PR_NUMBER: ${{ github.event.number }} 
+        PORTER_PROJECT: "1" 
+        PORTER_STACK_NAME: test 
+        PORTER_TAG: ${{ steps.vars.outputs.sha_short }} 
+        PORTER_TOKEN: ${{ secrets.PORTER_STACK_1_1 }} 
+        DOCKER_BUILDKIT: "1" 
+        PORTER_BUILDKIT_ARGS: --cache-to type=gha --cache-from type=gha -f ./docker/Dockerfile
+      run: |
+        echo "====> Start Docker Info"
+        docker info
+        echo "====> End Docker Info"
+
+        echo "====> Start buildx ls"
+        docker buildx ls
+        echo "====> End buildx ls"
+
+        echo "====> Start env"
+        env
+        echo "====> End env"
+
     - name: Deploy stack
       timeout-minutes: 30
       uses: porter-dev/porter-cli-action-testing@38c3c0300f437da68a682ff209a729951652d0e6
