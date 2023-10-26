@@ -19,6 +19,7 @@ jobs:
         command: apply -f ./porter.yaml
       env:
         DOCKER_BUILDKIT: "1"
+        PORTER_BUILDKIT_ARGS: "--cache-to type=gha --cache-from type=gha"
         PORTER_CLUSTER: "3111"
         PORTER_HOST: https://dashboard.getporter.dev
         PORTER_PR_NUMBER: ${{ github.event.number }}
