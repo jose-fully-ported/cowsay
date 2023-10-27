@@ -5,6 +5,6 @@ WORKDIR /usr/src/app
 
 COPY requirements.txt ./
 RUN --mount=type=cache,target=/root/.cache \
-    pip install -r requirements.txt
+    pip install -r requirements.txt && echo "subdir dockerfile"
 
 COPY . .
