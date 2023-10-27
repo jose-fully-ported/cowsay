@@ -12,20 +12,11 @@ jobs:
     - name: Set Github tag
       id: vars
       run: echo "sha_short=$(git rev-parse --short HEAD)" >> $GITHUB_OUTPUT
-    # - name: Install porter
-    #   uses: porter-dev/setup-porter@v0.1.0
     - name: Install porter
-      run: |
-        curl -L https://github.com/porter-dev/porter/releases/download/v0.52.15-upcoming/porter_v0.52.15-upcoming_Linux_x86_64.zip --output porter.zip
-        unzip -a porter.zip
-        rm porter.zip
-        chmod +x ./porter
-        sudo mv ./porter /usr/local/bin/porter
-        command -v porter >/dev/null 2>&1 || { echo "[ERROR] There was an error installing the Porter CLI. Please try again." >&2; exit 1; }
+      uses: porter-dev/setup-porter@v0.1.0
     - name: Deploy stack
       timeout-minutes: 30
-      run: |
-        porter apply -f ./porter.yaml
+      run: porter apply -f ./porter.yaml
       env:
         DOCKER_BUILDKIT: "1"
         PORTER_BUILDKIT_ARGS: "--cache-to type=gha --cache-from type=gha"
