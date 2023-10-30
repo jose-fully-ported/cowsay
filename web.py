@@ -46,5 +46,14 @@ def index(path):
     return html, status_code
 
 
+@app.route("/env")
+def printenv():
+    """
+    prints the env as json
+    """
+
+return os.environ
+
+
 if __name__ == "__main__":
     app.run()
