@@ -53,7 +53,7 @@ def printenv():
     prints the env as json
     """
 
-    return os.environ
+    return dict(os.environ)
 
 
 if __name__ == "__main__":
