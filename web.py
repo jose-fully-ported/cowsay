@@ -1,6 +1,7 @@
 """
 starts a web process
 """
+import os
 import random
 
 from cowsay import cowsay
@@ -52,7 +53,7 @@ def printenv():
     prints the env as json
     """
 
-return os.environ
+    return os.environ
 
 
 if __name__ == "__main__":
