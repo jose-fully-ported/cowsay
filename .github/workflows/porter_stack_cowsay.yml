@@ -12,18 +12,16 @@ jobs:
     - name: Set Github tag
       id: vars
       run: echo "sha_short=$(git rev-parse --short HEAD)" >> $GITHUB_OUTPUT
-    - name: Install porter
+    - name: Setup porter
       uses: porter-dev/setup-porter@v0.1.0
     - name: Deploy stack
       timeout-minutes: 30
       run: porter apply -f ./porter.yaml
       env:
-        DOCKER_BUILDKIT: "1"
-        PORTER_BUILDKIT_ARGS: "--cache-to type=gha --cache-from type=gha"
-        PORTER_CLUSTER: "3111"
-        PORTER_HOST: https://dashboard.getporter.dev
+        PORTER_CLUSTER: "1"
+        PORTER_HOST: https://newt-worthy-gazelle.ngrok-free.app
         PORTER_PR_NUMBER: ${{ github.event.number }}
-        PORTER_PROJECT: "9118"
+        PORTER_PROJECT: "1"
         PORTER_STACK_NAME: cowsay
         PORTER_TAG: ${{ steps.vars.outputs.sha_short }}
-        PORTER_TOKEN: ${{ secrets.PORTER_STACK_9118_3111 }}
+        PORTER_TOKEN: ${{ secrets.PORTER_STACK_1_1 }}
