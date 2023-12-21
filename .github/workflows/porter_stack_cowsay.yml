@@ -1,7 +1,7 @@
 "on":
   push:
     branches:
-    - main
+    - dockerfile-cache
 name: Deploy to cowsay
 jobs:
   porter-deploy:
