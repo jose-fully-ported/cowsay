@@ -29,3 +29,4 @@ jobs:
         PORTER_TOKEN: ${{ secrets.PORTER_STACK_1_1 }}
         DOCKER_BUILDKIT: "1"
         PORTER_BUILDKIT_ARGS: --cache-to type=gha --cache-from type=gha
+        BUILDKIT_CACHE_EXPORTER: gha
